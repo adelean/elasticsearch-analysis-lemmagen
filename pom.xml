@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.elasticsearch</groupId>
   <artifactId>elasticsearch-analysis-lemmagen</artifactId>
-  <version>8.16.1</version>
+  <version>8.17.0</version>
   <packaging>jar</packaging>
   <properties>
     <plugin.version>8.17.0</plugin.version>
