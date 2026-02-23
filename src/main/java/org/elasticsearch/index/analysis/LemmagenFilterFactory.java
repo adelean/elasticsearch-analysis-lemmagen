@@ -15,38 +15,31 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.IndexSettings;
 
 public class LemmagenFilterFactory extends AbstractTokenFilterFactory {
-
   private Lemmatizer lemmatizer;
   static final String DEFAULT_DIRECTORY = "lemmagen";
 
   public LemmagenFilterFactory(Environment env, String name, Settings settings) {
-
-    super(name, settings);
-
-    String lexicon = settings.get("lexicon", null);
-    String lexiconPath = settings.get("lexicon_path", null);
-
+    super(name);
+    String lexicon = settings.get("lexicon", (String)null);
+    String lexiconPath = settings.get("lexicon_path", (String)null);
     if (lexicon == null && lexiconPath == null) {
-      throw new IllegalArgumentException(
-          "You need to specify lexicon or lexicon_path option in the token filter configuration");
-    }
-
-    if (lexicon != null && lexiconPath != null) {
+      throw new IllegalArgumentException("You need to specify lexicon or lexicon_path option in the token filter configuration");
+    } else if (lexicon != null && lexiconPath != null) {
       throw new IllegalArgumentException("Both lexicon and lexicon_path can't be specified");
-    }
+    } else {
+      if (lexicon != null) {
+        this.lemmatizer = this.getLemmatizer(lexicon, env);
+      }
 
-    if (lexicon != null) {
-      this.lemmatizer = getLemmatizer(lexicon, env);
-    }
+      if (lexiconPath != null) {
+        this.lemmatizer = this.getLemmatizer(env.configDir().resolve(lexiconPath).toUri());
+      }
 
-    if (lexiconPath != null) {
-      this.lemmatizer = getLemmatizer(env.configFile().resolve(lexiconPath).toUri());
     }
-
   }
 
   public Lemmatizer getLemmatizer(String lexicon, Environment env) {
-    return getLemmatizer(env.configFile().resolve(getLexiconDefaultPath(lexicon)).toUri());
+    return this.getLemmatizer(env.configDir().resolve(this.getLexiconDefaultPath(lexicon)).toUri());
   }
 
   public Lemmatizer getLemmatizer(URI lexiconPath) {
@@ -59,15 +52,10 @@ public class LemmagenFilterFactory extends AbstractTokenFilterFactory {
   }
 
   public TokenStream create(TokenStream tokenStream) {
-    return new LemmagenFilter(tokenStream, lemmatizer);
+    return new LemmagenFilter(tokenStream, this.lemmatizer);
   }
 
   private String getLexiconDefaultPath(String lexicon) {
-    if (lexicon.endsWith(".lem")) {
-      return DEFAULT_DIRECTORY + "/" + lexicon;
-    } else {
-      return DEFAULT_DIRECTORY + "/" + lexicon + ".lem";
-    }
+    return lexicon.endsWith(".lem") ? "lemmagen/" + lexicon : "lemmagen/" + lexicon + ".lem";
   }
-
 }

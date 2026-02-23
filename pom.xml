@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <name>elasticsearch-analysis-lemmagen</name>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.elasticsearch</groupId>
   <artifactId>elasticsearch-analysis-lemmagen</artifactId>
-  <version>8.17.4</version>
+  <version>9.2.3</version>
   <packaging>jar</packaging>
   <properties>
-    <plugin.version>8.17.4</plugin.version>
-    <lucene.version>9.12.0</lucene.version>
-    <elasticsearch.version>8.17.4</elasticsearch.version>
+    <plugin.version>9.2.3</plugin.version>
+    <lucene.version>10.3.2</lucene.version>
+    <elasticsearch.version>9.2.3</elasticsearch.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
