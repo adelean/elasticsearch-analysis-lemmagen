@@ -13,6 +13,7 @@ import org.elasticsearch.cluster.metadata.IndexMetadata;
 import org.elasticsearch.Version;
 import org.elasticsearch.env.Environment;
 
+import static org.apache.lucene.tests.analysis.BaseTokenStreamTestCase.assertTokenStreamContents;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.InputStream;
